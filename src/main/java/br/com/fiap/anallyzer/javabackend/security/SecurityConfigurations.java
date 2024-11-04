@@ -23,7 +23,7 @@ public class SecurityConfigurations {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-    return httpSecurity
+    httpSecurity
         .csrf(csrf -> csrf.disable()) // Desabilita CSRF para facilitar o uso de tokens
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(authorizeRequests -> authorizeRequests
@@ -31,8 +31,7 @@ public class SecurityConfigurations {
             .requestMatchers("/auth/**").permitAll()
 
             // Permitir acesso às páginas HTML do Thymeleaf sem autenticação
-            .requestMatchers("/clientes/**", "/empresas/**", "/campanhas/**").permitAll() // Permitir acesso sem
-                                                                                          // autenticação para campanhas
+            .requestMatchers("/clientes/**", "/empresas/**", "/campanhas/**").permitAll()
 
             // Configurar permissões para os endpoints de API das entidades
             .requestMatchers(HttpMethod.GET, "/api/clientes/**").hasAnyRole("USER", "ADMIN")
@@ -43,16 +42,16 @@ public class SecurityConfigurations {
             .requestMatchers(HttpMethod.POST, "/api/empresas/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.PUT, "/api/empresas/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.DELETE, "/api/empresas/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.GET, "/api/campanhas/**").hasAnyRole("USER", "ADMIN") // Permissão para acesso
-                                                                                              // ao GET das campanhas
+            .requestMatchers(HttpMethod.GET, "/api/campanhas/**").hasAnyRole("USER", "ADMIN")
             .requestMatchers(HttpMethod.POST, "/api/campanhas/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.PUT, "/api/campanhas/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.DELETE, "/api/campanhas/**").hasRole("ADMIN")
 
             // Exigir autenticação para qualquer outra requisição não configurada acima
             .anyRequest().authenticated())
-        .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-        .build();
+        .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+
+    return httpSecurity.build();
   }
 
   @Bean

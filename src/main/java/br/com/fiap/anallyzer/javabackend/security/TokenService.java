@@ -16,6 +16,7 @@ import br.com.fiap.anallyzer.javabackend.model.User;
 
 @Service
 public class TokenService {
+
   @Value("${api.security.token.secret}")
   private String secret;
 
@@ -48,7 +49,7 @@ public class TokenService {
           .verify(token)
           .getSubject();
     } catch (JWTVerificationException exception) {
-      return "";
+      return null; // Retorna null se a validação falhar
     }
   }
 }
