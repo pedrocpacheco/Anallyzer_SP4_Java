@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Criar Cliente</title>
+  <style>
+    /* Estilo Global */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    /* Cabeçalho */
+    h1 {
+      color: #4CAF50;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* Links */
+    a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Botões */
+    button {
+      padding: 10px;
+      color: white;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    /* Formulário */
+    form {
+      display: flex;
+      flex-direction: column;
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      margin: 10px 0 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 100%;
+    }
+
+    /* Estilo da Tabela */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Estilo para mensagens de feedback */
+    .alert {
+      padding: 10px;
+      margin: 10px auto;
+      max-width: 500px;
+      border: 1px solid #4CAF50;
+      border-radius: 4px;
+      background-color: #dff0d8;
+      color: #3c763d;
+    }
+  </style>
+
+</head>
+
+<body>
+  <h1>Criar Cliente</h1>
+  <form th:action="@{/clientes/novo}" th:object="${clienteRequestDTO}" method="post">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" th:field="*{nome}" />
+    <br />
+    <label for="email">Email:</label>
+    <input type="text" id="email" th:field="*{email}" />
+    <br />
+    <label for="password">Senha:</label>
+    <input type="password" id="password" th:field="*{password}" />
+    <br />
+    <label for="escolaridade">Escolaridade:</label>
+    <select id="escolaridade" th:field="*{escolaridade}">
+      <option th:each="escolaridade : ${escolaridades}" th:value="${escolaridade}"
+        th:text="${escolaridade.getDescricao()}"></option>
+    </select>
+    <br />
+    <label for="estadoCivil">Estado Civil:</label>
+    <select id="estadoCivil" th:field="*{estadoCivil}">
+      <option th:each="estadoCivil : ${estadosCivis}" th:value="${estadoCivil}" th:text="${estadoCivil.getDescricao()}">
+      </option>
+    </select>
+    <br />
+    <label for="genero">Gênero:</label>
+    <select id="genero" th:field="*{genero}">
+      <option th:each="genero : ${generos}" th:value="${genero}" th:text="${genero.getDescricao()}"></option>
+    </select>
+    <br />
+    <button type="submit">Salvar</button>
+  </form>
+  <a href="/clientes">Voltar</a>
+</body>
+
+</html>

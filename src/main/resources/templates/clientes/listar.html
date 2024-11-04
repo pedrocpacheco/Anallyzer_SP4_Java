@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>Listar Campanhas</title>
+  <title>Clientes</title>
   <style>
     /* Estilo Global */
     body {
@@ -24,7 +24,6 @@
     a {
       color: #4CAF50;
       text-decoration: none;
-      margin: 0 10px;
     }
 
     a:hover {
@@ -45,6 +44,32 @@
 
     button:hover {
       background-color: #45a049;
+    }
+
+    /* Formulário */
+    form {
+      display: flex;
+      flex-direction: column;
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      margin: 10px 0 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 100%;
     }
 
     /* Estilo da Tabela */
@@ -91,43 +116,38 @@
 </head>
 
 <body>
-  <nav>
-    <a href="/clientes">Clientes</a>
-    <a href="/empresas">Empresas</a>
-  </nav>
-  <h1>Campanhas</h1>
+  <a href="/empresas">Empresas</a>
+  <a href="/campanhas">Campanhas</a>
+  <h1>Clientes</h1>
   <table>
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Título</th>
-        <th>Clicks Efetivos</th>
-        <th>Público Alvo</th>
-        <th>Período de Realização</th>
-        <th>Produto</th>
-        <th>Meio de Comunicação</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Escolaridade</th>
+        <th>Estado Civil</th>
+        <th>Gênero</th>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody>
-      <tr th:each="campanha : ${campanhas}">
-        <td th:text="${campanha.id}"></td>
-        <td th:text="${campanha.titulo}"></td>
-        <td th:text="${campanha.clicksEfetivos}"></td>
-        <td th:text="${campanha.publicoAlvo}"></td>
-        <td th:text="${campanha.periodoRealizacao}"></td>
-        <td th:text="${campanha.produto}"></td>
-        <td th:text="${campanha.meioComunicacao}"></td>
+      <tr th:each="cliente : ${clientes}">
+        <td th:text="${cliente.id}"></td>
+        <td th:text="${cliente.nome}"></td>
+        <td th:text="${cliente.email}"></td>
+        <td th:text="${cliente.escolaridade.getDescricao()}"></td>
+        <td th:text="${cliente.estadoCivil.getDescricao()}"></td>
+        <td th:text="${cliente.genero.getDescricao()}"></td>
         <td>
-          <a th:href="@{/campanhas/{id}(id=${campanha.id})}">Visualizar</a>
-          <a th:href="@{/campanhas/editar/{id}(id=${campanha.id})}">Editar</a>
-          <a th:href="@{/campanhas/deletar/{id}(id=${campanha.id})}"
+          <a th:href="@{/clientes/visualizar/{id}(id=${cliente.id})}">Visualizar</a>
+          <a th:href="@{/clientes/editar/{id}(id=${cliente.id})}">Editar</a>
+          <a th:href="@{/clientes/deletar/{id}(id=${cliente.id})}"
             onclick="return confirm('Deseja realmente deletar?')">Deletar</a>
         </td>
       </tr>
     </tbody>
   </table>
-  <a href="/campanhas/novo">Nova Campanha</a>
+  <a href="/clientes/novo">Novo Cliente</a>
 </body>
 
 </html>

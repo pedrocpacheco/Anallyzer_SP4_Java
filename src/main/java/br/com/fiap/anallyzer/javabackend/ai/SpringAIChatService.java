@@ -12,11 +12,11 @@ public class SpringAIChatService {
   private final ChatClient.Builder chatClientBuilder;
 
   @Autowired
-  private final CampanhaRepository campanhaRepository; // Adicione o repositório aqui
+  private final CampanhaRepository campanhaRepository;
 
   public SpringAIChatService(ChatClient.Builder chatClientBuilder, CampanhaRepository campanhaRepository) {
     this.chatClientBuilder = chatClientBuilder;
-    this.campanhaRepository = campanhaRepository; // Injete o repositório
+    this.campanhaRepository = campanhaRepository;
   }
 
   public String run(String userPrompt) {
@@ -34,7 +34,7 @@ public class SpringAIChatService {
         .orElseThrow(() -> new RuntimeException("Campanha não encontrada"));
 
     return String.format(
-        "Estou fazendo uma campanha de marketing com as seguintes informações: Título: %s, Descrição: %s | Poderia me informar se você pensa se a mesma terá sucesso?",
-        campanha.getTitulo(), campanha.getDescricao());
+        "Estou fazendo uma campanha de marketing com as seguintes informações: Título: %s, Descrição: %s, Público Alvo: %s, Período de Realização: %s. Poderia me informar se você pensa que a mesma terá sucesso?",
+        campanha.getTitulo(), campanha.getDescricao(), campanha.getPublicoAlvo(), campanha.getPeriodoRealizacao());
   }
 }

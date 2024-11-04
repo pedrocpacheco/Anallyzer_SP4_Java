@@ -21,8 +21,16 @@ public class CampanhaService {
 
   public List<CampanhaResponseDTO> listarCampanhas() {
     return campanhaRepository.findAll().stream()
-        .map(campanha -> new CampanhaResponseDTO(campanha.getId(), campanha.getTitulo(),
-            campanha.getClicksEfetivos(), campanha.getDescricao()))
+        .map(campanha -> new CampanhaResponseDTO(
+            campanha.getId(),
+            campanha.getTitulo(),
+            campanha.getClicksEfetivos(),
+            campanha.getDescricao(),
+            campanha.getPublicoAlvo(),
+            campanha.getPeriodoRealizacao(),
+            campanha.getProduto(), // Novo atributo
+            campanha.getMeioComunicacao() // Novo atributo
+        ))
         .collect(Collectors.toList());
   }
 
@@ -31,15 +39,35 @@ public class CampanhaService {
     campanha.setTitulo(campanhaRequest.titulo());
     campanha.setClicksEfetivos(campanhaRequest.clicksEfetivos());
     campanha.setDescricao(campanhaRequest.descricao());
+    campanha.setPublicoAlvo(campanhaRequest.publicoAlvo());
+    campanha.setPeriodoRealizacao(campanhaRequest.periodoRealizacao());
+    campanha.setProduto(campanhaRequest.produto()); // Novo atributo
+    campanha.setMeioComunicacao(campanhaRequest.meioComunicacao()); // Novo atributo
     campanha = campanhaRepository.save(campanha);
-    return new CampanhaResponseDTO(campanha.getId(), campanha.getTitulo(),
-        campanha.getClicksEfetivos(), campanha.getDescricao());
+    return new CampanhaResponseDTO(
+        campanha.getId(),
+        campanha.getTitulo(),
+        campanha.getClicksEfetivos(),
+        campanha.getDescricao(),
+        campanha.getPublicoAlvo(),
+        campanha.getPeriodoRealizacao(),
+        campanha.getProduto(), // Novo atributo
+        campanha.getMeioComunicacao() // Novo atributo
+    );
   }
 
   public Optional<CampanhaResponseDTO> visualizarCampanha(Long id) {
     return campanhaRepository.findById(id)
-        .map(campanha -> new CampanhaResponseDTO(campanha.getId(), campanha.getTitulo(),
-            campanha.getClicksEfetivos(), campanha.getDescricao()));
+        .map(campanha -> new CampanhaResponseDTO(
+            campanha.getId(),
+            campanha.getTitulo(),
+            campanha.getClicksEfetivos(),
+            campanha.getDescricao(),
+            campanha.getPublicoAlvo(),
+            campanha.getPeriodoRealizacao(),
+            campanha.getProduto(), // Novo atributo
+            campanha.getMeioComunicacao() // Novo atributo
+        ));
   }
 
   public void atualizarCampanha(Long id, CampanhaRequestDTO campanhaRequest) {
@@ -48,6 +76,10 @@ public class CampanhaService {
     campanha.setTitulo(campanhaRequest.titulo());
     campanha.setClicksEfetivos(campanhaRequest.clicksEfetivos());
     campanha.setDescricao(campanhaRequest.descricao());
+    campanha.setPublicoAlvo(campanhaRequest.publicoAlvo());
+    campanha.setPeriodoRealizacao(campanhaRequest.periodoRealizacao());
+    campanha.setProduto(campanhaRequest.produto()); // Novo atributo
+    campanha.setMeioComunicacao(campanhaRequest.meioComunicacao()); // Novo atributo
     campanhaRepository.save(campanha);
   }
 

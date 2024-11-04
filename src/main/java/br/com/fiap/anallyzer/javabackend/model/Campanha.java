@@ -19,16 +19,33 @@ public class Campanha {
   @Column(name = "titulo_campanha")
   private String titulo;
 
+  @Column(name = "publicoalvo_campanha")
+  private String publicoAlvo;
+
+  @Column(name = "periodo_campanha")
+  private String periodoRealizacao;
+
   @Column(name = "clicks_efetivos")
   private Long clicksEfetivos;
+
+  @Column(name = "produto_campanha")
+  private String produto;
+
+  @Column(name = "meiocomunicacao_campanha")
+  private String meioComunicacao;
 
   @Column(name = "desc_campanha")
   private String descricao;
 
-  public Campanha(Long id, Long clicksEfetivos, String titulo, String descricao) {
+  public Campanha(Long id, String titulo, String publicoAlvo, String periodoRealizacao, Long clicksEfetivos,
+      String produto, String meioComunicacao, String descricao) {
     this.id = id;
     this.titulo = titulo;
+    this.publicoAlvo = publicoAlvo;
+    this.periodoRealizacao = periodoRealizacao;
     this.clicksEfetivos = clicksEfetivos;
+    this.produto = produto;
+    this.meioComunicacao = meioComunicacao;
     this.descricao = descricao;
   }
 
@@ -57,10 +74,9 @@ public class Campanha {
 
   @Override
   public String toString() {
-    return "Campanha{" +
-        "id=" + id +
-        ", clicksEfetivos=" + clicksEfetivos +
-        '}';
+    return "Campanha [id=" + id + ", titulo=" + titulo + ", publicoAlvo=" + publicoAlvo + ", periodoRealizacao="
+        + periodoRealizacao + ", clicksEfetivos=" + clicksEfetivos + ", produto=" + produto + ", meioComunicacao="
+        + meioComunicacao + ", descricao=" + descricao + "]";
   }
 
   public String getTitulo() {
@@ -77,5 +93,37 @@ public class Campanha {
 
   public void setDescricao(String descricao) {
     this.descricao = descricao;
+  }
+
+  public String getPublicoAlvo() {
+    return publicoAlvo;
+  }
+
+  public void setPublicoAlvo(String publicoAlvo) {
+    this.publicoAlvo = publicoAlvo;
+  }
+
+  public String getPeriodoRealizacao() {
+    return periodoRealizacao;
+  }
+
+  public void setPeriodoRealizacao(String periodoRealizacao) {
+    this.periodoRealizacao = periodoRealizacao;
+  }
+
+  public String getProduto() {
+    return produto;
+  }
+
+  public void setProduto(String produto) {
+    this.produto = produto;
+  }
+
+  public String getMeioComunicacao() {
+    return meioComunicacao;
+  }
+
+  public void setMeioComunicacao(String meioComunicacao) {
+    this.meioComunicacao = meioComunicacao;
   }
 }

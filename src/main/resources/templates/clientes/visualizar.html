@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>Listar Campanhas</title>
+  <title>Visualizar Cliente</title>
   <style>
     /* Estilo Global */
     body {
@@ -24,7 +24,6 @@
     a {
       color: #4CAF50;
       text-decoration: none;
-      margin: 0 10px;
     }
 
     a:hover {
@@ -45,6 +44,32 @@
 
     button:hover {
       background-color: #45a049;
+    }
+
+    /* Formulário */
+    form {
+      display: flex;
+      flex-direction: column;
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      margin: 10px 0 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 100%;
     }
 
     /* Estilo da Tabela */
@@ -91,43 +116,15 @@
 </head>
 
 <body>
-  <nav>
-    <a href="/clientes">Clientes</a>
-    <a href="/empresas">Empresas</a>
-  </nav>
-  <h1>Campanhas</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Título</th>
-        <th>Clicks Efetivos</th>
-        <th>Público Alvo</th>
-        <th>Período de Realização</th>
-        <th>Produto</th>
-        <th>Meio de Comunicação</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:each="campanha : ${campanhas}">
-        <td th:text="${campanha.id}"></td>
-        <td th:text="${campanha.titulo}"></td>
-        <td th:text="${campanha.clicksEfetivos}"></td>
-        <td th:text="${campanha.publicoAlvo}"></td>
-        <td th:text="${campanha.periodoRealizacao}"></td>
-        <td th:text="${campanha.produto}"></td>
-        <td th:text="${campanha.meioComunicacao}"></td>
-        <td>
-          <a th:href="@{/campanhas/{id}(id=${campanha.id})}">Visualizar</a>
-          <a th:href="@{/campanhas/editar/{id}(id=${campanha.id})}">Editar</a>
-          <a th:href="@{/campanhas/deletar/{id}(id=${campanha.id})}"
-            onclick="return confirm('Deseja realmente deletar?')">Deletar</a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <a href="/campanhas/novo">Nova Campanha</a>
+  <h1>Visualizar Cliente</h1>
+  <div>
+    <p><strong>Nome:</strong> <span th:text="${cliente.nome}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${cliente.email}"></span></p>
+    <p><strong>Escolaridade:</strong> <span th:text="${cliente.escolaridade.descricao}"></span></p>
+    <p><strong>Estado Civil:</strong> <span th:text="${cliente.estadoCivil.descricao}"></span></p>
+    <p><strong>Gênero:</strong> <span th:text="${cliente.genero.descricao}"></span></p>
+  </div>
+  <a href="/clientes">Voltar</a>
 </body>
 
 </html>

@@ -30,48 +30,6 @@
       text-decoration: underline;
     }
 
-    /* Botões */
-    button {
-      padding: 10px;
-      color: white;
-      background-color: #4CAF50;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
-    /* Formulário */
-    form {
-      display: flex;
-      flex-direction: column;
-      max-width: 500px;
-      margin: 20px auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    label {
-      margin: 10px 0 5px;
-    }
-
-    input[type="text"],
-    input[type="number"],
-    textarea {
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      width: 100%;
-    }
-
     /* Estilo da Tabela */
     table {
       width: 90%;
@@ -100,17 +58,6 @@
     tbody tr:hover {
       background-color: #f1f1f1;
     }
-
-    /* Estilo para mensagens de feedback */
-    .alert {
-      padding: 10px;
-      margin: 10px auto;
-      max-width: 500px;
-      border: 1px solid #4CAF50;
-      border-radius: 4px;
-      background-color: #dff0d8;
-      color: #3c763d;
-    }
   </style>
 
 </head>
@@ -121,6 +68,18 @@
   <p><strong>Título:</strong> <span th:text="${campanha.titulo}"></span></p>
   <p><strong>Clicks Efetivos:</strong> <span th:text="${campanha.clicksEfetivos}"></span></p>
   <p><strong>Descrição:</strong> <span th:text="${campanha.descricao}"></span></p>
+  <p><strong>Público Alvo:</strong> <span th:text="${campanha.publicoAlvo}"></span></p>
+  <p><strong>Período de Realização:</strong> <span th:text="${campanha.periodoRealizacao}"></span></p>
+
+  <!-- Novo campo: Produto -->
+  <p><strong>Produto:</strong> <span th:text="${campanha.produto}"></span></p>
+
+  <!-- Novo campo: Meio de Comunicação -->
+  <p><strong>Meio de Comunicação:</strong> <span th:text="${campanha.meioComunicacao}"></span></p>
+
+  <!-- Empresa relacionada -->
+  <p><strong>Empresa Associada:</strong> <span th:text="${campanha.empresa?.nome}"></span></p>
+
   <a href="/campanhas">Voltar</a>
 </body>
 

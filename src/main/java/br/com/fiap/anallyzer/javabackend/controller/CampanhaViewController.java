@@ -36,7 +36,7 @@ public class CampanhaViewController {
 
   @GetMapping("/novo")
   public String criarNovaCampanha(Model model) {
-    model.addAttribute("campanha", new CampanhaRequestDTO("", null, ""));
+    model.addAttribute("campanha", new CampanhaRequestDTO("", null, "", "", null, "", "")); // Atualizado
     return "campanhas/novo"; // Caminho do template
   }
 
@@ -50,8 +50,15 @@ public class CampanhaViewController {
   public String editarCampanha(@PathVariable Long id, Model model) {
     CampanhaResponseDTO campanha = campanhaService.visualizarCampanha(id)
         .orElseThrow(() -> new IllegalArgumentException("Campanha não encontrada"));
-    CampanhaRequestDTO campanhaRequestDTO = new CampanhaRequestDTO(campanha.titulo(),
-        campanha.clicksEfetivos(), campanha.descricao());
+    CampanhaRequestDTO campanhaRequestDTO = new CampanhaRequestDTO(
+        campanha.titulo(),
+        campanha.clicksEfetivos(),
+        campanha.descricao(),
+        campanha.publicoAlvo(),
+        campanha.periodoRealizacao(),
+        campanha.produto(), // Novo atributo
+        campanha.meioComunicacao() // Novo atributo
+    );
     model.addAttribute("campanhaRequestDTO", campanhaRequestDTO);
     model.addAttribute("id", id);
     return "campanhas/editar"; // retorna a view para editar a campanha

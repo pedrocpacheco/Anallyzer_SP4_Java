@@ -28,14 +28,14 @@ public class CampanhaController {
 
   @GetMapping("/novo")
   public String mostrarFormularioCadastro(Model model) {
-    model.addAttribute("campanha", new CampanhaRequestDTO(null, null, null));
+    model.addAttribute("campanha", new CampanhaRequestDTO("", null, "", "", null, "", "")); // Atualizado
     return "novo"; // nome da view para criar nova campanha
   }
 
   @PostMapping
   public String criarCampanha(@ModelAttribute CampanhaRequestDTO campanhaRequest) {
     campanhaService.criarCampanha(campanhaRequest);
-    return "redirect:/campanhas"; // redireciona para a lista de campanhas
+    return "redirect:/api/campanhas"; // redireciona para a lista de campanhas
   }
 
   @GetMapping("/{id}")
@@ -50,8 +50,15 @@ public class CampanhaController {
   public String mostrarFormularioEdicao(@PathVariable Long id, Model model) {
     CampanhaResponseDTO campanhaResponse = campanhaService.visualizarCampanha(id)
         .orElseThrow(() -> new IllegalArgumentException("Campanha não encontrada"));
-    CampanhaRequestDTO campanhaRequest = new CampanhaRequestDTO(campanhaResponse.titulo(),
-        campanhaResponse.clicksEfetivos(), campanhaResponse.descricao());
+    CampanhaRequestDTO campanhaRequest = new CampanhaRequestDTO(
+        campanhaResponse.titulo(),
+        campanhaResponse.clicksEfetivos(),
+        campanhaResponse.descricao(),
+        campanhaResponse.publicoAlvo(), // Novo atributo
+        campanhaResponse.periodoRealizacao(), // Novo atributo
+        campanhaResponse.produto(), // Novo atributo
+        campanhaResponse.meioComunicacao() // Novo atributo
+    );
     model.addAttribute("campanha", campanhaRequest);
     model.addAttribute("id", id);
     return "editar"; // nome da view para editar campanha
@@ -60,12 +67,12 @@ public class CampanhaController {
   @PostMapping("/editar/{id}")
   public String atualizarCampanha(@PathVariable Long id, @ModelAttribute CampanhaRequestDTO campanhaRequest) {
     campanhaService.atualizarCampanha(id, campanhaRequest);
-    return "redirect:/campanhas"; // redireciona para a lista de campanhas
+    return "redirect:/api/campanhas"; // redireciona para a lista de campanhas
   }
 
   @GetMapping("/deletar/{id}")
   public String deletarCampanha(@PathVariable Long id) {
     campanhaService.deletarCampanha(id);
-    return "redirect:/campanhas"; // redireciona para a lista de campanhas
+    return "redirect:/api/campanhas"; // redireciona para a lista de campanhas
   }
 }
