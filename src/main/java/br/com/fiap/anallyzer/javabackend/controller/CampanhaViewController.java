@@ -64,12 +64,6 @@ public class CampanhaViewController {
     return "campanhas/editar"; // retorna a view para editar a campanha
   }
 
-  @PostMapping("/editar/{id}")
-  public String atualizarCampanha(@PathVariable Long id, @ModelAttribute CampanhaRequestDTO campanhaRequestDTO) {
-    campanhaService.atualizarCampanha(id, campanhaRequestDTO);
-    return "redirect:/campanhas"; // redireciona para a lista de campanhas
-  }
-
   @GetMapping("/deletar/{id}")
   public String deletarCampanha(@PathVariable Long id) {
     campanhaService.deletarCampanha(id);

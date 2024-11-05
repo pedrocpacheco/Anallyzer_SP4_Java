@@ -34,9 +34,11 @@ public class ClienteViewController {
     return "clientes/listar";
   }
 
-  @GetMapping("/clientes/visualizar/{id}")
+  @GetMapping("/visualizar/{id}")
   public String visualizarCliente(@PathVariable Long id, Model model) {
-    return "visualizar";
+    ClienteResponseDTO cliente = clienteService.listarClientePorId(id);
+    model.addAttribute("cliente", cliente);
+    return "clientes/visualizar";
   }
 
   @GetMapping("/novo")
