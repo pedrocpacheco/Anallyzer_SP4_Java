@@ -70,17 +70,29 @@ public class CampanhaService {
         ));
   }
 
-  public void atualizarCampanha(Long id, CampanhaRequestDTO campanhaRequest) {
+  public CampanhaResponseDTO atualizarCampanha(Long id, CampanhaRequestDTO campanhaRequest) {
     Campanha campanha = campanhaRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("Campanha não encontrada"));
+
     campanha.setTitulo(campanhaRequest.titulo());
     campanha.setClicksEfetivos(campanhaRequest.clicksEfetivos());
     campanha.setDescricao(campanhaRequest.descricao());
     campanha.setPublicoAlvo(campanhaRequest.publicoAlvo());
     campanha.setPeriodoRealizacao(campanhaRequest.periodoRealizacao());
-    campanha.setProduto(campanhaRequest.produto()); // Novo atributo
-    campanha.setMeioComunicacao(campanhaRequest.meioComunicacao()); // Novo atributo
-    campanhaRepository.save(campanha);
+    campanha.setProduto(campanhaRequest.produto());
+    campanha.setMeioComunicacao(campanhaRequest.meioComunicacao());
+
+    campanha = campanhaRepository.save(campanha);
+
+    return new CampanhaResponseDTO(
+        campanha.getId(),
+        campanha.getTitulo(),
+        campanha.getClicksEfetivos(),
+        campanha.getDescricao(),
+        campanha.getPublicoAlvo(),
+        campanha.getPeriodoRealizacao(),
+        campanha.getProduto(),
+        campanha.getMeioComunicacao());
   }
 
   public void deletarCampanha(Long id) {
