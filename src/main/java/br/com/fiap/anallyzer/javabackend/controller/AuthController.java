@@ -29,6 +29,7 @@ public class AuthController {
   @Autowired
   private TokenService tokenService;
 
+  @SuppressWarnings("rawtypes")
   @PostMapping("/login")
   public ResponseEntity login(@RequestBody @Valid AuthDTO authDTO) {
     // Gerar um token de usuário e senha
@@ -39,6 +40,7 @@ public class AuthController {
     return ResponseEntity.ok(new LoginResponseDTO(token));
   }
 
+  @SuppressWarnings("rawtypes")
   @PostMapping("/register")
   public ResponseEntity register(@RequestBody @Valid RegisterDTO registerDTO) {
     if (userRepository.findByLogin(registerDTO.login()) != null) {

@@ -22,6 +22,7 @@ public class SpringAIChatController {
     this.chatService = chatService;
   }
 
+  @SuppressWarnings("rawtypes")
   @GetMapping("/generate/{id}")
   public ResponseEntity<Map> generate(@PathVariable Long id) {
     // Aqui você deve obter os detalhes da campanha pelo ID.
